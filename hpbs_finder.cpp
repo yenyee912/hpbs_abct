@@ -1,91 +1,85 @@
 #include <iostream>
+#include <fstream>
 #include <iomanip>
-#include <chrono>
 #include <cstdint>
 
 using namespace std;
 
-// Using standard fixed-width types for portability in papers
-typedef uint16_t word_t; 
+typedef uint16_t word_t;
+const uint32_t MODULO = 65536;
 
 /**
- * @brief Logic for ARX Boomerang Connectivity Table (BCT) verification.
- * This preserves the original mathematical relationship for x3 and x4.
+ * @brief Procedure Quick_ABCT
+ * Preserves your exact filtration logic and writes to file if true.
  */
-class BCT_Experiment {
-public:
-    static constexpr int SIZE = 65536; // 2^16
+bool quick_abct(word_t a, word_t ap, word_t b, word_t bp, ofstream &outFile) {
+    for (word_t i = 0; i <= 0xF; i++) {
+        for (word_t j = 0; j <= 0xF; j++) {
+            
+            // x = (i [+] j) ^ b [-] (j ^ bp)
+            word_t term1 = (i + j) % MODULO;
+            word_t x = (term1 ^ b) - (j ^ bp);
+            x %= MODULO;
 
-    struct Result {
-        long double probability;
-        uint64_t count;
-    };
+            // x' = ((i ^ a) [+] (j ^ ap)) ^ b [-] (j ^ ap ^ bp)
+            word_t term2 = ((i ^ a) + (j ^ ap)) % MODULO;
+            word_t x_p = (term2 ^ b) - (j ^ ap ^ bp);
+            x_p %= MODULO;
 
-    /**
-     * @param limit: Optional sample limit for partial enumeration (your 1/4 idea)
-     */
-    static Result run_analysis(word_t d_i, word_t d_ip, word_t d_o, word_t d_op, uint32_t limit = SIZE) {
-        uint64_t count = 0;
-        uint64_t iterations = 0;
+            if ((x ^ x_p) == a) {
+                // Write to CSV format: alpha, alpha_prime, beta, beta_prime
+                outFile << "0x" << hex << a << "," 
+                        << "0x" << ap << "," 
+                        << "0x" << b << "," 
+                        << "0x" << bp << dec << endl;
+                return true; 
+            }
+        }
+    }
+    return false;
+}
 
-        for (uint32_t x = 0; x < limit; x++) {
-            // Early break logic preserved from your original snippet if needed
-            // if (count > 10) break; 
+int main() {
+    ofstream outFile("HPBS_results.csv");
+    
+    if (!outFile) {
+        cerr << "Error: Could not open file for writing." << endl;
+        return 1;
+    }
 
-            for (uint32_t xp = 0; xp < limit; xp++) {
-                iterations++;
+    // CSV Header
+    outFile << "alpha,alpha_prime,beta,beta_prime" << endl;
 
-                // Original Logic: x3 = ((x + xp) ^ n0) - (xp ^ np)
-                word_t x3 = (static_cast<word_t>(x + xp) ^ d_o) - (xp ^ d_op);
-                
-                // Original Logic: x4 = (((x ^ d0) + (xp ^ dp)) ^ n0) - (xp ^ dp ^ np)
-                word_t x4 = (static_cast<word_t>((x ^ d_i) + (xp ^ d_ip)) ^ d_o) - (xp ^ d_ip ^ d_op);
+    uint32_t total_tested = 0;
+    uint32_t total_passed = 0;
 
-                if ((x3 % SIZE) == ((x4 ^ d_i) % SIZE)) {
-                    count++;
+    cout << "Analyzing HPBS patterns... Progress logged to HPBS_results.csv" << endl;
+
+    for (word_t a = 0; a <= 0xF; a++) {
+        for (word_t ap = 0; ap <= 0xF; ap++) {
+            for (word_t b = 0; b <= 0xF; b++) {
+                for (word_t bp = 0; bp <= 0xF; bp++) {
+                    
+                    total_tested++;
+                    if (quick_abct(a, ap, b, bp, outFile)) {
+                        total_passed++;
+                    }
+                    
                 }
             }
         }
-
-        // Probability calculation based on the actual sample size used (iterations)
-        long double prob = (iterations > 0) ? static_cast<long double>(count) / iterations : 0;
-        return {prob, count};
-    }
-};
-
-int main() {
-    // Experiment parameters
-    const word_t alpha = 0x0006;
-    const word_t alpha_prime = 0x0000;
-    
-    cout << "BCT Verification Experiment" << endl;
-    cout << "Alpha: 0x" << hex << alpha << ", Alpha': 0x" << alpha_prime << dec << endl;
-    cout << "--------------------------------------------------------" << endl;
-    cout << "Beta\tBeta'\tCount\tProbability" << endl;
-
-    auto start_time = chrono::high_resolution_clock::now();
-
-    // Nested loops for Beta (i) and Beta' (j)
-    for (word_t beta = 0; beta <= 0xf; ++beta) {
-        for (word_t beta_p = 0; beta_p <= 0xf; ++beta_p) {
-            
-            // Running your logic
-            auto res = BCT_Experiment::run_analysis(alpha, alpha_prime, beta, beta_p);
-
-            if (res.count > 0) {
-                cout << hex << "0x" << beta << "\t" 
-                     << "0x" << beta_p << "\t" 
-                     << dec << res.count << "\t" 
-                     << scientific << setprecision(4) << res.probability << endl;
-            }
-        }
+        // Progress indicator for the user
+        cout << "Completed Alpha: 0x" << hex << a << dec << endl;
     }
 
-    auto end_time = chrono::high_resolution_clock::now();
-    chrono::duration<double> elapsed = end_time - start_time;
-    
-    cout << "--------------------------------------------------------" << endl;
-    cout << "Total runtime: " << fixed << setprecision(2) << elapsed.count() << "s" << endl;
+    outFile.close();
+
+    // Summary for your paper's "Experimental Results" section
+    cout << "\n--- Experiment Summary ---" << endl;
+    cout << "Total Patterns Tested: " << total_tested << endl;
+    cout << "Patterns Passed (Hits): " << total_passed << endl;
+    cout << "Filtration Rate: " << (static_cast<double>(total_passed) / total_tested) * 100 << "%" << endl;
+    cout << "Results saved to HPBS_results.csv" << endl;
 
     return 0;
 }
