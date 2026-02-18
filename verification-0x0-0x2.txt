@@ -1,0 +1,88 @@
+Empirical Validation of HPBS-Derived Switches
+Target Pattern: (alpha=0, alpha'=2)
+Constraint: LSB Bit 1 (2nd bit) of Beta == LSB Bit 1 of Beta'
+---------------------------------------------------------
+Valid switch found at sample 1: 3b10, a652, 34e0, d4d8
+Valid switch found at sample 3: 3740, 8b22, 99ac, a20
+Valid switch found at sample 5: 2990, 49c2, 5f42, 7a0b
+Valid switch found at sample 9: 2e50, 7192, 2a4f, 93b3
+Valid switch found at sample 18: c570, 4902, 423d, f324
+Valid switch found at sample 25: ac30, 19e2, 155c, 40c
+Valid switch found at sample 31: 1c60, 9a62, 7317, 8622
+Valid switch found at sample 36: 2640, 8232, 3f90, 6f48
+Valid switch found at sample 40: b530, f3f2, c828, d0c4
+Valid switch found at sample 44: 4f70, 3fb2, 9d45, 8a31
+Valid switch found at sample 46: 7090, e9c2, ecbf, 2e4a
+Valid switch found at sample 53: e740, 6502, 9bca, 97c6
+Valid switch found at sample 55: a9c0, 8012, b9ce, f40a
+Valid switch found at sample 58: 3c10, 3552, 6821, ca19
+Valid switch found at sample 73: 7a40, 2222, e23b, e03f
+Valid switch found at sample 78: 4e30, 242, c5e2, dd46
+Valid switch found at sample 103: 9440, 9092, 48ae, a7a7
+Valid switch found at sample 104: a0a0, 4822, a227, 539e
+Valid switch found at sample 106: f070, c172, 591b, 1213
+Valid switch found at sample 107: 4170, 1152, cf09, 285d
+Valid switch found at sample 117: c500, ca82, f5df, 397
+Valid switch found at sample 120: c8d0, acc2, 3afb, 6bdb
+Valid switch found at sample 128: d1f0, c6c2, 63e1, ffa8
+Valid switch found at sample 129: bf60, d762, 5e08, fa49
+Valid switch found at sample 131: 9f10, 8a22, 1be7, dd1e
+Valid switch found at sample 138: 55d0, 63c2, ce81, 8410
+Valid switch found at sample 147: 4b30, 8072, d70b, d717
+Valid switch found at sample 149: 1c20, 6042, 3236, 65fe
+Valid switch found at sample 152: 9240, f622, 2ce8, 8c7c
+Valid switch found at sample 154: a690, e012, e5bc, 8eac
+Valid switch found at sample 171: 24c0, 83b2, e8a0, 488c
+Valid switch found at sample 174: 1d90, fd52, 5cda, 855a
+Valid switch found at sample 175: e840, 1ef2, 22a, 9f6a
+Valid switch found at sample 184: 5eb0, 7bc2, 3ac1, d6f4
+Valid switch found at sample 194: 4090, 7232, 70a1, 6868
+Valid switch found at sample 197: 24e0, 4be2, ca4a, c7a3
+Valid switch found at sample 200: cec0, c2d2, 1516, 4576
+Valid switch found at sample 205: e700, 96f2, 5561, 680c
+Valid switch found at sample 208: 5500, 65f2, 9056, 4ed6
+Valid switch found at sample 210: 23f0, 2392, 5f1b, c8eb
+Valid switch found at sample 215: 6610, a942, 435e, 2157
+Valid switch found at sample 248: 4780, 5662, 5d44, b058
+Valid switch found at sample 253: 1b50, 90c2, 73c, 329
+Valid switch found at sample 258: 9df0, bf12, d231, 2e70
+Valid switch found at sample 263: db80, 77e2, a51e, ba7e
+Valid switch found at sample 264: 14a0, a422, ae7e, 9dc7
+Valid switch found at sample 268: 1f60, 45e2, 211, 378
+Valid switch found at sample 269: cac0, 76c2, 7650, 7f15
+Valid switch found at sample 270: b160, 9b32, 3602, a122
+Valid switch found at sample 279: 1cb0, 1ea2, e6f6, 254a
+Valid switch found at sample 281: 2d10, a992, 8ec4, c285
+Valid switch found at sample 282: 4ae0, f4d2, 9158, 43fc
+Valid switch found at sample 283: baf0, ff02, 5189, af94
+Valid switch found at sample 291: 6730, 8452, 88d9, 9f41
+Valid switch found at sample 297: 9fb0, 5682, c884, a04d
+Valid switch found at sample 299: 5cd0, c2d2, 6d6c, 3b1c
+Valid switch found at sample 304: 3d50, 10c2, 23e7, ed32
+Valid switch found at sample 319: 4b0, 262, e8a6, ed32
+Valid switch found at sample 321: b310, 16c2, d1dd, 2de4
+Valid switch found at sample 323: bda0, 48f2, 8e16, 94fb
+Valid switch found at sample 326: 3250, 5612, 1c19, 8204
+Valid switch found at sample 327: 2160, 4962, f4ca, 448e
+Valid switch found at sample 330: 8710, be32, 3589, 7d75
+Valid switch found at sample 331: ece0, 2de2, 6a68, c2c5
+Valid switch found at sample 335: 79a0, bba2, ec05, 5920
+Valid switch found at sample 338: e720, 4182, 7f00, bf6c
+Valid switch found at sample 343: eb80, d7c2, 3f4, 44d4
+Valid switch found at sample 348: 7ac0, d442, a54d, b7ec
+Valid switch found at sample 351: 8ee0, dad2, 3cdd, 3895
+Valid switch found at sample 354: e850, 7ee2, fcd7, 11ee
+Valid switch found at sample 358: 78c0, eb12, 9b7, e71b
+Valid switch found at sample 361: 9ba0, 5912, 7787, caaf
+Valid switch found at sample 365: 2d00, f332, 1b99, 3354
+Valid switch found at sample 366: e9c0, cfc2, 8033, f8f
+Valid switch found at sample 370: 4e70, 5fb2, 1d3a, 357a
+Valid switch found at sample 372: 2bb0, 3b32, 444e, 69c6
+Valid switch found at sample 373: c110, 8a52, 76ad, 8b51
+Valid switch found at sample 378: 9eb0, 2a62, 567d, 56e4
+Valid switch found at sample 379: 21f0, 62b2, 40b2, 214f
+---------------------------------------------------------
+Statistical Summary:
+Total Samples Tested: 180
+Valid 16-bit Switches: 4f
+Empirical Probability (p_valid): 20.57%
