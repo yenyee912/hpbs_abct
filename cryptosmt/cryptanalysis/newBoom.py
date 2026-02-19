@@ -1,5 +1,7 @@
 """
-boomerang search script made for CHAM and SPARXround
+Version: Jan 2026, boomerang search script made for CHAM and SPARXround
+@author: yenyee.chan, jesenteh
+
 """
 
 from parser import parsesolveroutput, stpcommands
@@ -25,8 +27,7 @@ import datetime
 def findValidARXBoomerangDifferential(cipher, parameters):
     if cipher.name == "chamBoom":
         searchCHAM(cipher, parameters)
-    elif cipher.name == "sparxroundBoom" or cipher.name == "sparxround":
-        checkAbct.check_abct_prob(0x8022, 0x51c1, 0x2800, 0x0a04)
+    elif cipher.name == "sparxroundBoom":
         searchSPARX(cipher, parameters)
 
     else:
@@ -476,14 +477,7 @@ def searchCHAM(cipher, parameters):
                   beta = rotr(beta, 1)  # ROTR1(beta)
                   beta_prime = rotl(beta_prime, 8)  # beta' follow rotation of alpha'
 
-              # print(
-              #     "Betas: ",
-              #     format(beta, "04x"),
-              #     format(beta_prime, "04x"),
-              # )
-
               print(f"----\nChecking ABCT for switching probability....")
-              # leftSwitchProb = 1.0
               total_switch_prob = checkAbct.check_abct_prob(
                   alpha, alpha_prime, beta, beta_prime
               )
@@ -528,16 +522,9 @@ def searchDifferentialTrail(cipher, parameters, timestamp, searchLimit):
     print("---")
     start_time = time.time()
 
-  
-    # Set target weight for trail
-    # parameters["sweight"] = parameters["weight"]
-
     characteristic = ""
 
     print('parameters["fixedVariables"] : ', parameters["fixedVariables"])
-    # if cipher.name== "sparxroundBoom":
-    #   print('parameters["skipround"] : ', parameters["skipround"])
-    # print('parameters["boomerangVariables"] : ', parameters["boomerangVariables"])
 
     value = datetime.datetime.fromtimestamp(timestamp)
 
@@ -570,7 +557,6 @@ def searchDifferentialTrail(cipher, parameters, timestamp, searchLimit):
         # Check if a characteristic was found
         if search.foundSolution(result):
             current_time = round(time.time() - start_time, 2)
-            acc_weight = 0
 
             if parameters["boolector"]:
                 characteristic = parsesolveroutput.getCharBoolectorOutput(
@@ -580,16 +566,6 @@ def searchDifferentialTrail(cipher, parameters, timestamp, searchLimit):
                 characteristic = parsesolveroutput.getCharSTPOutput(
                     result, cipher, parameters["rounds"]
                 )
-            # if cipher.name == "sparxroundBoom":
-            #     if not parameters["skipround"] == 99:
-            #         lowerStartRound = parameters["skipround"] + 1
-            #         for row in characteristic.getData()[:lowerStartRound]:
-            #             acc_weight += abs(int(row[10]) + int(row[11]))
-            #             row[10] = "-0"
-            #             row[11] = "-0"
-            #         # print(characteristic.getData([2][2]))
-
-            #     parameters["sweight"] = parameters["sweight"] - acc_weight
             print("---")
             print(
                 (
@@ -638,10 +614,7 @@ def searchEasySPARXUpper(cipher, parameters):
     if "upperVariables" in parameters and parameters["upperVariables"]:
         for d in parameters["upperVariables"]:
             parameters["fixedVariables"].update(d)
-    # print(type(parameters["upperVariables"]))
-    # print(parameters["upperVariables"])
 
-    # Initialise separate blocked trails
     parameters["blockedUpperCharacteristics"] = []
     parameters["blockedLowerCharacteristics"] = []
     while True:
@@ -682,8 +655,6 @@ def searchEasySPARXUpper(cipher, parameters):
                     format(left_alpha_prime, "04x"),
                     format(right_alpha, "04x"),
                     format(right_alpha_prime, "04x"),
-                    # format(left_beta, "04x"),
-                    # format(left_beta_prime, "04x"),
                 )
 
                 left_prob = checkAbct.check_abct_prob(
@@ -692,7 +663,6 @@ def searchEasySPARXUpper(cipher, parameters):
                 right_prob = checkAbct.check_abct_prob(
                     right_alpha, right_alpha_prime, 0x2800, 0x0A04
                 )
-                # total_prob = 0
                 total_prob = left_prob * right_prob
                 total_switch_weight = 0
                 if total_prob != 0:
@@ -728,13 +698,10 @@ def searchEasySPARXLower(cipher, parameters):
         parameters["rounds"] = parameters["lowertrail"] + parameters["skipround"] + 1
 
     parameters["part"] = "lower"  # variables to control the encoded HPBS patterns
-    total_prob = 0
     parameters["fixedVariables"] = {}
     if "lowerVariables" in parameters and parameters["lowerVariables"]:
         for d in parameters["lowerVariables"]:
             parameters["fixedVariables"].update(d)
-    # print(type(parameters["upperVariables"]))
-    # print(parameters["upperVariables"])
 
     # Initialise separate blocked trails
     parameters["blockedUpperCharacteristics"] = []
