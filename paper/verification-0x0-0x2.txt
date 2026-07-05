@@ -83,6 +83,6 @@ Valid switch found at sample 378: 9eb0, 2a62, 567d, 56e4
 Valid switch found at sample 379: 21f0, 62b2, 40b2, 214f
 ---------------------------------------------------------
 Statistical Summary:
-Total Samples Tested: 180
-Valid 16-bit Switches: 4f
+Total Samples Tested: 384
+Valid 16-bit Switches: 79
 Empirical Probability (p_valid): 20.57%

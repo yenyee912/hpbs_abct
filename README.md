@@ -63,6 +63,15 @@ g++ -O3 -std=c++17 paper/verify_sparx_components.cpp -o paper/verify_sparx_compo
 
 The lower SPARX component starts at round 1, matching the `X01/Y01 -> X07/Y07` indexing in `examples/sparxroundBoom.yaml`.
 
+The random-sampling check used for Algorithm 2 can be reproduced with:
+
+```bash
+g++ -O3 -std=c++17 paper/algo2.cpp -o paper/algo2
+./paper/algo2
+```
+
+The script first generates complete 16-bit words and then injects the corresponding 4-bit HPBS pattern into the least significant bits. The archived sample output for the `(alpha, alpha') = (0x0, 0x2)` condition is provided in `paper/verification-0x0-0x2.txt`.
+
 ## 📌 Notes
 chamBoom.py and sparxroundBoom.py are SMT models that integrate Highly Probable Boomerang Switch (HPBS) patterns.
 

@@ -27,7 +27,7 @@ bool check_bct_16bit(word_t d_i, word_t d_ip, word_t d_o, word_t d_op) {
 int main() {
     random_device rd;
     mt19937 gen(rd());
-    uniform_int_distribution<int> upper_dist(0, 0x0FFF); // Randomizing upper 12 bits
+    uniform_int_distribution<int> full_dist(0, 0xFFFF);
 
     word_t alpha = 0x0;
     word_t alpha_p = 0x2;
@@ -52,11 +52,16 @@ int main() {
             int N = 100; 
 
             for (int i = 0; i < N; i++) {
-                // Construct 16-bit words: [Random 12 bits] + [4-bit Pattern]
-                word_t a  = (upper_dist(gen) << 4) | (alpha & 0xF);
-                word_t ap = (upper_dist(gen) << 4) | (alpha_p & 0xF);
-                word_t b  = (upper_dist(gen) << 4) | (b_lsb & 0xF);
-                word_t bp = (upper_dist(gen) << 4) | (bp_lsb & 0xF);
+                word_t a  = full_dist(gen);
+                word_t ap = full_dist(gen);
+                word_t b  = full_dist(gen);
+                word_t bp = full_dist(gen);
+
+                // Generate complete 16-bit words first, then inject the HPBS pattern.
+                a  = (a  & 0xFFF0) | (alpha & 0xF);
+                ap = (ap & 0xFFF0) | (alpha_p & 0xF);
+                b  = (b  & 0xFFF0) | (b_lsb & 0xF);
+                bp = (bp & 0xFFF0) | (bp_lsb & 0xF);
 
                 if (check_bct_16bit(a, ap, b, bp)) success_count++;
             }
