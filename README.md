@@ -70,7 +70,7 @@ g++ -O3 -std=c++17 paper/algo2.cpp -o paper/algo2
 ./paper/algo2
 ```
 
-The script first generates complete 16-bit words and then injects the corresponding 4-bit HPBS pattern into the least significant bits. The archived sample output for the `(alpha, alpha') = (0x0, 0x2)` condition is provided in `paper/verification-0x0-0x2.txt`.
+The script first generates complete 16-bit words and then injects the corresponding 4-bit HPBS pattern into the least significant bits. The observed valid-switch rate is pattern-dependent and should be interpreted as an empirical filter result, not as a universal HPBS probability.
 
 ## 📌 Notes
 chamBoom.py and sparxroundBoom.py are SMT models that integrate Highly Probable Boomerang Switch (HPBS) patterns.
