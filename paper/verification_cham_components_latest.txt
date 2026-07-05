@@ -1,0 +1,24 @@
+Seed: 5210737694715494979
+Trials per key: 4194304
+Keys: 16
+
+CHAM-64 upper E0 component from the 36-round boomerang trail
+  rounds: 17
+  input difference: 0x8200 0x0100 0x0001 0x8000
+  output difference: 0x0400 0x0004 0x0502 0x0088
+  trials: 67108864 across 16 key(s)
+  successes: 5002
+  expected successes: 2048
+  observed probability: 7.45356e-05 = 2^-13.7117
+  predicted probability: 2^-15
+
+CHAM-64 lower E1 component from the 36-round boomerang trail
+  rounds: 18
+  input difference: 0x8200 0x0100 0x0001 0x8000
+  output difference: 0x0004 0x0502 0x0088 0x0000
+  trials: 67108864 across 16 key(s)
+  successes: 3413
+  expected successes: 1024
+  observed probability: 5.08577e-05 = 2^-14.2632
+  predicted probability: 2^-16
+

@@ -30,6 +30,8 @@ After setting up CryptoSMT, copy the following files and folders into the approp
 | `newcryptosmt-arx.py`              | `CryptoSMT/` (root directory)             | Entry point script to launch ARX boomerang search       |
 | `examples/chamBoom.yaml`           | `CryptoSMT/examples/`                     | Configuration for CHAM-64 search                        |
 | `examples/sparxroundBoom.yaml`     | `CryptoSMT/examples/`                     | Configuration for SPARX-64 search                       |
+| `paper/verify_cham_components.cpp` | Standalone C++ program                    | Experimental verification of practical CHAM-64 component differentials |
+| `paper/verify_sparx_components.cpp` | Standalone C++ program                   | Experimental verification of practical SPARX-64 component differentials |
 
 ---
 
@@ -40,6 +42,26 @@ Run the following command from the root of your CryptoSMT directory:
 ```bash
 python newcryptosmt-arx.py --inputfile chamBoom.yaml
 ```
+
+### Experimental Verification
+
+The practical CHAM-64 component trails used in the paper can be sampled with:
+
+```bash
+g++ -O3 -std=c++17 paper/verify_cham_components.cpp -o paper/verify_cham_components
+./paper/verify_cham_components 4194304 16 0x485042535f414243
+```
+
+The first argument is the number of plaintext pairs per key, the second is the number of random keys, and the third is the random seed.
+
+The practical SPARX-64 component trails can be sampled with:
+
+```bash
+g++ -O3 -std=c++17 paper/verify_sparx_components.cpp -o paper/verify_sparx_components
+./paper/verify_sparx_components 67108864 0x53504152585f4850
+```
+
+The lower SPARX component starts at round 1, matching the `X01/Y01 -> X07/Y07` indexing in `examples/sparxroundBoom.yaml`.
 
 ## 📌 Notes
 chamBoom.py and sparxroundBoom.py are SMT models that integrate Highly Probable Boomerang Switch (HPBS) patterns.
@@ -56,4 +78,3 @@ chamBoom.py and sparxroundBoom.py are SMT models that integrate Highly Probable 
 
 ## 📚 Citation
 If you use this tool in your work, please consider citing the associated paper (link/article to be added here).
-

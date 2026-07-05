@@ -1,0 +1,39 @@
+Seed: 6003370125210634320
+Trials: 67108864
+
+SPARX-64 upper E0 component from the 13-round rectangle trail
+  rounds: 6
+  start round: 0
+  omit last L2: no
+  input difference: 0x0000 0x0000 0x1005 0x02a1
+  output difference: 0x0245 0x0747 0x0040 0x0542
+  trials: 67108864
+  successes: 2903
+  expected successes: 2048
+  observed probability: 4.32581e-05 = 2^-14.4967
+  predicted probability: 2^-15
+
+SPARX-64 upper E0 component before the final L2 layer
+  rounds: 6
+  start round: 0
+  omit last L2: yes
+  input difference: 0x0000 0x0000 0x1005 0x02a1
+  output difference: 0x0040 0x0542 0x0000 0x0000
+  trials: 67108864
+  successes: 2903
+  expected successes: 2048
+  observed probability: 4.32581e-05 = 2^-14.4967
+  predicted probability: 2^-15
+
+SPARX-64 lower E1 component from the 13-round rectangle trail
+  rounds: 6
+  start round: 1
+  omit last L2: no
+  input difference: 0x0000 0x0000 0x0a20 0x4205
+  output difference: 0x8004 0x8c0e 0x8000 0x840a
+  trials: 67108864
+  successes: 366
+  expected successes: 256
+  observed probability: 5.45382e-06 = 2^-17.4843
+  predicted probability: 2^-18
+
